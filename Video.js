@@ -165,7 +165,7 @@ export default class Video extends Component {
       uri = `file://${uri}`;
     }
 
-    const isNetwork = !!(uri && uri.match(/^https?:/));
+    const isNetwork = !!(uri && uri.match(/^(http|https)?:/));
     const isAsset = !!(uri && uri.match(/^(assets-library|file|content|ms-appx|ms-appdata):/));
 
     let nativeResizeMode;
