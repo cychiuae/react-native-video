@@ -811,9 +811,7 @@ static NSString *const timedMetadata = @"timedMetadata";
   }
 }
 
-#pragma mark - Lifecycle
-
-- (void)removeFromSuperview
+- (void)stopVideo
 {
   [_player pause];
   if (_playbackRateObserverRegistered) {
@@ -821,18 +819,24 @@ static NSString *const timedMetadata = @"timedMetadata";
     _playbackRateObserverRegistered = NO;
   }
   _player = nil;
-
+  
   [self removePlayerLayer];
-
+  
   [_playerViewController.view removeFromSuperview];
   _playerViewController = nil;
-
+  
   [self removePlayerTimeObserver];
   [self removePlayerItemObservers];
-
+  
   _eventDispatcher = nil;
   [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
+#pragma mark - Lifecycle
+
+- (void)removeFromSuperview
+{
+  [self stopVideo];
   [super removeFromSuperview];
 }
 
